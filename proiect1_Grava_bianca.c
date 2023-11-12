@@ -12,21 +12,22 @@ struct tranz
 } v[251];
 int nt;
 
-/*int read_int()
+int read_int()
 {
     int num=0;
     char nr[10];
+    nr[0]='\0';
     while (num==0)//se asigura ca va fi citit un numar, iar din moment ce in problema noastra introducerea
 //valorii 0 ar fi ilogica pentru valoarea unei zile, luni sau a unui an(singurele entitati float ale programului),
 //putem folosi valoarea 0 drept valoare de control a citirii
     {
-        printf("se asteapta un intreg\n");
+        //printf("se asteapta un intreg\n");
         if (fgets(nr, sizeof(nr), stdin) != NULL)//verifica daca un sir de caractere de marimea corecta a fost citit cu succes
         {
             if (sscanf(nr, "%d", &num) == 1) //verifica daca sirul de caractere din nr poate fi transformat in int,
 //iar daca da, num retine valoare respectiva ca intreg
             {
-                // intreg stocat cu succes
+                num=num;
             }
             else
             {
@@ -44,24 +45,27 @@ int nt;
 }
 
 
-int read_float()
+double read_double()
 {
     double num=0;
     char nr[200];
+    int ok=0;
+    nr[0]='\0';
     while (num==0)//se asigura ca va fi citit un numar, iar din moment ce in problema noastra introducerea
 //valorii 0 ar fi ilogica pentru valoarea unei sume(singura entitate float a programului), putem folosi valoarea 0
 //drept valoare de control a citirii
     {
-        printf("se asteapta un nr rational: ");
+        //printf("se asteapta un nr rational: ");
         if (fgets(nr, sizeof(nr), stdin) != NULL)//verifica daca un sir de caractere de marimea corecta a fost citit cu succes
         {
             if (sscanf(nr, "%lf", &num) == 1) //verifica daca sirul de caractere din nr poate fi transformat in float,
 //iar daca da, num retine valoare respectiva ca float
             {
-                // float stocat cu succes
+                num=num;
             }
             else
             {
+            	if(ok==1)
                 printf("Va rugam introduceti un numar rational.\n");
                 num = 0;
             }
@@ -71,9 +75,10 @@ int read_float()
             printf("Error reading input.\n");
             num=0;
         }
+        ok=1;
     }
     return num;
-}*/
+}
 
 char* read_tip()
 {
@@ -106,7 +111,7 @@ char* citire_data_valida()
     while(zi==0)
     {
     	printf("\nIntroduceti ziua: ");
-        scanf("%d",&zi);
+        zi=read_int();//scanf("%d",&zi);
         if(zi<1||zi>31)
         {
             zi=0;
@@ -116,7 +121,7 @@ char* citire_data_valida()
     while(luna==0)
     {
     printf("Introduceti luna: ");
-        scanf("%d",&luna);
+        luna=read_int();//scanf("%d",&luna);
         if(luna<1||luna>12)
         {
             luna=0;
@@ -126,7 +131,7 @@ char* citire_data_valida()
     while(an==0)
     {
     printf("Introduceti anul: ");
-        scanf("%d",&an);
+        an=read_int();//scanf("%d",&an);
         if(an<2000||an>2023)
         {
             an=0;
@@ -151,7 +156,7 @@ void introd_tranz()
     while(sum==0)
     {
         printf("\nIntroduceti suma: ");
-        scanf("%lf",&sum);
+        sum=read_double();//scanf("%lf",&sum);
         if(sum>0)
            v[nt].suma=sum;
         else
@@ -505,7 +510,8 @@ int main()
         printf("5. SALVEAZA informatiile\n");
         printf("6. IMPORTA informatii\n");
         printf("7. IESIRE\n");
-        scanf("%d",&ui);
+        ui=read_int();
+        //scanf("%d",&ui);
         switch(ui)
         {
         case 1:
@@ -536,6 +542,3 @@ int main()
     }
     return 0;
 }
-
-
-
